@@ -25,5 +25,5 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         repository: ${{ github.repository }}
         issue: ${{ github.event.issue.number }}
-        project: openai/infra/1
+        project_id: MDc6UHJvamVjdDQ3ODkwODQ=
 
