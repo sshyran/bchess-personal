@@ -22,7 +22,7 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: bchess/default-project-board-action@project_id
       with:
-        github_token: "v1.7d77273c343c1221d27846afbafd66264c6333fe"
+        github_token: "v1.3129e89698e91ade675529b352ac877c689380cb"
         repository: ${{ github.repository }}
         issue: ${{ github.event.issue.number }}
         project: MDc6UHJvamVjdDQ4MDE4ODc=
