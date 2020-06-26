@@ -10,20 +10,13 @@ on:
     types:
       - opened
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
-  # This workflow contains a single job called "build"
-  add_to_project:
-    # The type of runner that the job will run on
+  automate-project-columns:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: bchess/default-project-board-action@project_id
-      with:
-        github_token: "v1.d6fedabc11b7579635537c76d8477611d9e5174a"
-        repository: ${{ github.repository }}
-        issue: ${{ github.event.issue.number }}
-        project: MDc6UHJvamVjdDQ4MDE4ODc=
-
+      - uses: alex-page/github-project-automation-plus@v0.2.4
+        with:
+          project: "Supercomputing Team"
+          column: Backlog
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
