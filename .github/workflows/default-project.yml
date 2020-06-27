@@ -1,7 +1,5 @@
 name: default-project
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   issues:
     types:
@@ -12,20 +10,15 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   add_to_project:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: bchess/default-project-board-action@project_id
       with:
         private_key: ${{ secrets.SUPERCOMPUTING_ISSUEBOT_PRIVATE_KEY }}
+        app_id: 70438
+        project: "Supercomputing Team"
         repository: ${{ github.repository }}
         issue: ${{ github.event.issue.number }}
-        app_id: 70438
-        installation_id: 10072045
-        project: MDc6UHJvamVjdDQ4MDE4ODc=
+        pull_request: ${{ github.event.pull_request.number }}
 
