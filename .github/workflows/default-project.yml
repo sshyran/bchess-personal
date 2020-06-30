@@ -13,7 +13,7 @@ jobs:
   add_to_project:
     runs-on: ubuntu-latest
     steps:
-    - uses: bchess/default-project-board-action@project_id
+    - uses: openai/infra/issuebot@bchess/issuebot
       with:
         private_key: ${{ secrets.SUPERCOMPUTING_ISSUEBOT_PRIVATE_KEY }}
         app_id: 70438
