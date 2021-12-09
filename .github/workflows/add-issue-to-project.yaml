@@ -4,6 +4,10 @@ on:
     types:
       - opened
       - reopened
+  pull_request:
+    types:
+      - opened
+      - reopened
 jobs:
   track_pr:
     runs-on: ubuntu-latest
@@ -44,7 +48,7 @@ jobs:
       - name: Add Issue to project
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-          CONTENT_ID: ${{ github.event.issue.node_id }}
+          CONTENT_ID: ${{ github.event.issue.node_id }}${{ github.event.pull_request.node_id }}
         run: |
           item_id="$( gh api graphql -f query='
             mutation($project:ID!, $content_id:ID!) {
