@@ -105,7 +105,7 @@ jobs:
       - name: If PR is opened or re-opened, set status to In Review
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-        if: ${{ github.event_name == 'pull_request' && (github.event.action == "opened" || github.event.action == "reopened") }}
+        if: ${{ github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened') }}
         run: |
           gh api graphql -f query='
             mutation (
@@ -129,7 +129,7 @@ jobs:
       - name: If PR is closed, set status to Abandoned
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-        if: ${{ github.event_name == 'pull_request' && github.event.action == "closed" }}
+        if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' }}
         run: |
           gh api graphql -f query='
             mutation (
@@ -153,7 +153,7 @@ jobs:
       - name: If Issue is closed or PR is merged, set status to Closed
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-        if: ${{ (github.event_name == 'pull_request' && github.event.action == "merged") || (github.event_name == "issue" && github.event.action == "closed") }}
+        if: ${{ (github.event_name == 'pull_request' && github.event.action == 'merged') || (github.event_name == 'issue' && github.event.action == 'closed') }}
         run: |
           gh api graphql -f query='
             mutation (
