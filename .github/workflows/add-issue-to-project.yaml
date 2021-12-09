@@ -58,7 +58,7 @@ jobs:
           echo 'ITEM_ID='$item_id >> $GITHUB_ENV
 
       - name: Get date
-        run: echo "DATE=\"$(date +"%Y-%m-%d %H:%M:%S")\"" >> $GITHUB_ENV
+        run: echo "DATE=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
 
       - name: Set fields
         env:
@@ -81,4 +81,4 @@ jobs:
                   id
                 }
               }
-            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silent
+            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f date_field=$DATE_FIELD_ID -f date_value="$DATE" --silent
