@@ -44,6 +44,7 @@ jobs:
           echo 'PROJECT_ID='$(jq '.data.organization.projectNext.id' project_data.json) >> $GITHUB_ENV
           echo 'DATE_FIELD_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Last Updated") | .id' project_data.json) >> $GITHUB_ENV
           echo 'STATUS_FIELD_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'IN_REVIEW_OPTION_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") |.settings | fromjson.options[] | select(.name=="In Review") |.id' project_data.json) >> $GITHUB_ENV
 
       - name: Add Issue to project
         env:
@@ -64,7 +65,7 @@ jobs:
       - name: Get date
         run: echo "DATE=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
 
-      - name: Set fields
+      - name: Set time field
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
@@ -86,3 +87,27 @@ jobs:
                 }
               }
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f date_field=$DATE_FIELD_ID -f date_value="$DATE" --silent
+
+      - name: Set status if PR
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          gh api graphql -f query='
+            mutation (
+              $project: ID!
+              $item: ID!
+              $date_field: ID!
+              $date_value: String!
+            ) {
+              set_status: updateProjectNextItemField(input: {
+                projectId: $project
+                itemId: $item
+                fieldId: $status_field
+                value: $status_value
+              }) {
+                projectNextItem {
+                  id
+                  }
+              }
+            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.IN_REVIEW_OPTION_ID }} --silent
