@@ -55,7 +55,7 @@ jobs:
           echo 'STATUS_FIELD_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
           echo 'IN_REVIEW_OPTION_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") |.settings | fromjson.options[] | select(.name=="In Review") |.id' project_data.json) >> $GITHUB_ENV
           echo 'CLOSED_OPTION_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") |.settings | fromjson.options[] | select(.name=="Closed") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'ABANDONED_OPTION_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") |.settings | fromjson.options[] | select(.name=="Abandoned") |.id' project_data.json) >> $GITHUB_ENV
+          echo 'ABANDONED_OPTION_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") |.settings | fromjson.options[] | select(.name=="Abandoned PRs") |.id' project_data.json) >> $GITHUB_ENV
 
       - name: Add Issue to project
         # note that this appears to be safe to re-run even if the item is
