@@ -1,4 +1,3 @@
-runs-on: [self-hosted]
 name: Add Issue to project
 on:
   issues:
@@ -20,7 +19,7 @@ on:
       - edited
 jobs:
   track_pr:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Generate token
         id: generate_token
